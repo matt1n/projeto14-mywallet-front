@@ -1,0 +1,60 @@
+import axios from "axios"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import styled from "styled-components"
+
+export default function LoginForm() {
+    const navigate = useNavigate()
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("");
+
+    const body = {email, password}
+
+    function loginSucess(data){
+        console.log(data)
+        navigate("/wallet")
+    }
+
+    function loginError(data){
+        console.log(data)
+    }
+
+    function submitLogin(e){
+        e.preventDefault()
+        axios.post("localhost:5000/sign-in", body)
+        .then(
+            res=> loginSucess(res.data)
+        )
+        .catch(
+            res=> loginError(res.response.data)
+        )
+    }
+    return(
+        <LoginFormFormat onSubmit={submitLogin}>
+            <input type="email" placeholder="E-mail" onChange={(e)=> setEmail(e.target.value)}></input>
+            <input type="password" placeholder="Senha" onChange={(e)=> setPassword(e.target.value)}></input>
+            <button>Entrar</button>
+        </LoginFormFormat>
+    )
+};
+
+const LoginFormFormat = styled.form`
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    input{
+        height: 50px;
+        margin-bottom: 15px;
+        ::placeholder{
+
+        }
+    }
+    button{
+        height: 45px;
+        background-color: #5e00a3;
+        border-radius: 5px;
+        font-size: 20px;
+        font-weight: 700;
+        color: #fff;
+    }
+`
