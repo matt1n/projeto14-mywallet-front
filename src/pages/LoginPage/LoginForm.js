@@ -21,18 +21,14 @@ export default function LoginForm() {
 
     function submitLogin(e){
         e.preventDefault()
-        axios.post("localhost:5000/sign-in", body)
-        .then(
-            res=> loginSucess(res.data)
-        )
-        .catch(
-            res=> loginError(res.response.data)
-        )
+        const promise = axios.post("http://localhost:5000/sign-in", body)
+        promise.then(res=> loginSucess(res.data))
+        promise.catch(res=> loginError(res.response.data))
     }
     return(
         <LoginFormFormat onSubmit={submitLogin}>
-            <input type="email" placeholder="E-mail" onChange={(e)=> setEmail(e.target.value)}></input>
-            <input type="password" placeholder="Senha" onChange={(e)=> setPassword(e.target.value)}></input>
+            <input type="email" placeholder="E-mail" onChange={(e)=> setEmail(e.target.value)} required></input>
+            <input type="password" placeholder="Senha" onChange={(e)=> setPassword(e.target.value)} required></input>
             <button>Entrar</button>
         </LoginFormFormat>
     )
