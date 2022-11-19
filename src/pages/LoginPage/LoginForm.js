@@ -1,17 +1,20 @@
 import axios from "axios"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import { AuthContext } from "../../contexts/authContext"
 
 export default function LoginForm() {
     const navigate = useNavigate()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("");
+    const {setToken} = useContext(AuthContext)
 
     const body = {email, password}
 
     function loginSucess(data){
-        console.log(data)
+        console.log(data.token)
+        setToken(data.token)
         navigate("/wallet")
     }
 
