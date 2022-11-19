@@ -1,18 +1,32 @@
+import axios from "axios"
+import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import { AuthContext } from "../../contexts/authContext"
 
 export default function MoneyInPage() {
     const navigate = useNavigate()
+
+    const [value, setValue] = useState(0)
+    const [description, setDescription] = useState("")
+    const {config} = useContext(AuthContext)
+
+    const body = {value,description}
+
     function MoneyInSubmit(e){
         e.preventDefault()
-        navigate("/wallet")
+        axios.post("http://localhost:5000/wallet/money-in", body, config)
+        .then(()=>navigate("/wallet"))
+        .catch((res)=> console.log(res.response.data))
+
+        // navigate("/wallet")
     }
     return (
         <MoneyInFormat>
             <p>Nova entrada</p>
             <form onSubmit={MoneyInSubmit}>
-                <input type="number" placeholder="Valor"></input>
-                <input placeholder="Descrição"></input>
+                <input type="number" placeholder="Valor" min={0.01} onChange={(e)=> setValue(Number(e.target.value))} required></input>
+                <input placeholder="Descrição" onChange={(e)=> setDescription(e.target.value)} required></input>
                 <button>Salvar entrada</button>
             </form>
         </MoneyInFormat>

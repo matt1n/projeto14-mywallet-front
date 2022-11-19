@@ -12,7 +12,11 @@ export default function WalletDisplay() {
   function balanceTotal(data) {
     let newBalance = balance;
     if (data.length !== 0) {
-      data.forEach((obj) => (newBalance += obj.value));
+      data.forEach((obj) => (obj.type==="money-in" ? newBalance += obj.value : newBalance -= obj.value));
+      if (newBalance<=0 && newBalance>=-0.01){
+        setBalance(0)
+        return
+      }
       setBalance(newBalance.toFixed(2));
     }
   }
@@ -52,7 +56,7 @@ export default function WalletDisplay() {
           <p>Não há registros de entrada ou saída</p>
         )}
       </InsAndOuts>
-      <Balance>
+      <Balance balance={balance}>
         <h2>SALDO</h2>
         <p>{balance}</p>
       </Balance>
@@ -63,17 +67,20 @@ export default function WalletDisplay() {
 const WalletDisplayFormat = styled.div`
   height: 70%;
   width: 100%;
-  padding: 23px 11px 10px 12px;
+  padding: 23px 0px 10px 12px;
   background-color: #fff;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 `;
 
 const InsAndOuts = styled.div`
   font-family: "Raleway", sans-serif;
   font-size: 16px;
+  overflow: scroll;
+  margin-bottom: 31px;
 `;
 const CardOfMoneyMoviment = styled.div`
   display: flex;
@@ -89,17 +96,27 @@ const DayOfMoneyMoviment = styled.p`
 `;
 const MoneyMovimentValue = styled.p`
   color: ${(props) => (props.type === "money-out" ? "red" : "green")};
+  margin-right: 12px;
 `;
 const Balance = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-family: "Raleway", sans-serif;
+  position: absolute;
+  width: 100%;
+  height: 41px;
+  padding: 0 11px 0 12px;
+  bottom: 0px;
+  left: 0;
+  background-color: #fff;
+  border-radius: 5px;
   h2 {
     font-size: 17px;
     font-weight: 700;
   }
   p {
     font-size: 17px;
-    color: green;
+    color: ${props=> props.balance>=0 ? "green" : "red"};
   }
 `;
