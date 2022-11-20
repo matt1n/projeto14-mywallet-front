@@ -16,7 +16,9 @@ export default function RegisterForm() {
     navigate("/")
   }
   function registerError(data){
-    console.log(data)
+    let message = ""
+    data.map(d=>message+=(`${d}\n`).replace(",",""))
+    alert(message)
   }
 
   function registerSubmit(e) {

@@ -8,18 +8,21 @@ export default function LoginForm() {
     const navigate = useNavigate()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("");
-    const {setToken} = useContext(AuthContext)
+    const {setToken, setUsername} = useContext(AuthContext)
 
     const body = {email, password}
 
     function loginSucess(data){
-        console.log(data.token)
+        setUsername(data.username)
         setToken(data.token)
+        localStorage.setItem("token", data.token)
+        localStorage.setItem("username", data.username)
         navigate("/wallet")
     }
 
     function loginError(data){
         console.log(data)
+        alert(data)
     }
 
     function submitLogin(e){

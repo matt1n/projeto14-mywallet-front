@@ -22,7 +22,7 @@ export default function WalletDisplay() {
   }
 
   function getSucess(data) {
-    setWalletMovimentation(data);
+    setWalletMovimentation(data.reverse());
     balanceTotal(data);
   }
 

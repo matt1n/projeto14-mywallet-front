@@ -22,7 +22,10 @@ export default function MoneyOutPage() {
     }
     return (
         <MoneyOutFormat>
-        <p>Nova saída</p>
+        <div>
+            <p>Nova saída</p>
+            <ion-icon name="chevron-back-circle" onClick={()=> navigate("/wallet")}></ion-icon>
+        </div>
         <form onSubmit={MoneyOutSubmit}>
             <input type="number" placeholder="Valor" min={0.01} onChange={(e)=> setValue(Number(e.target.value))} required></input>
             <input placeholder="Descrição" onChange={(e)=> setDescription(e.target.value)} required></input>
@@ -36,6 +39,19 @@ const MoneyOutFormat = styled.div`
     width: 100%;
     height: 100%;
     padding: 25px 25px 16px 25px;
+    div{
+        height: 32px;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+        align-items: center;
+        ion-icon {
+            font-size: 32px;
+            color: #fff;
+            --ionicon-stroke-width: 40px;
+            cursor: pointer;
+        }
+    }
     form{
         display: flex;
         flex-direction: column;
@@ -44,7 +60,6 @@ const MoneyOutFormat = styled.div`
         font-size: 26px;
         font-weight: 700;
         color: #fff;
-        margin-bottom: 40px;
     }
     button{
         height: 45px;

@@ -1,14 +1,17 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { AuthContext } from "../../contexts/authContext";
 import WalletDisplay from "./WalletDisplay";
 
 export default function WalletPage() {
   const navigate = useNavigate();
+  const {username} = useContext(AuthContext)
 
   return (
     <WalletPageFormat>
       <PageTop>
-        <p>Olá, Fulano</p>
+        <p>Olá, {username}</p>
         <ion-icon onClick={() => navigate("/")} name="exit-outline"></ion-icon>
       </PageTop>
       <WalletDisplay></WalletDisplay>
