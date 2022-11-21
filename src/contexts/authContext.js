@@ -4,7 +4,7 @@ export const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem("token"));
-  const [username, setUsername] = useState(localStorage.getItem("username"))
+  const [username, setUsername] = useState(localStorage.getItem("username"));
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -12,7 +12,7 @@ function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ setToken, config, username, setUsername}}>
+    <AuthContext.Provider value={{ setToken, config, username, setUsername }}>
       {children}
     </AuthContext.Provider>
   );

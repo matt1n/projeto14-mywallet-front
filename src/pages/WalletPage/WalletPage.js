@@ -6,7 +6,7 @@ import WalletDisplay from "./WalletDisplay";
 
 export default function WalletPage() {
   const navigate = useNavigate();
-  const {username} = useContext(AuthContext)
+  const { username } = useContext(AuthContext);
 
   return (
     <WalletPageFormat>

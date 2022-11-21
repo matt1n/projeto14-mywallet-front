@@ -10,22 +10,26 @@ import RegisterPage from "../pages/RegisterPage/RegisterPage";
 import WalletPage from "../pages/WalletPage/WalletPage";
 
 export default function App() {
-    return(
+  return (
     <BrowserRouter>
-    <GlobalStyle/>
-    <AuthProvider>
+      <GlobalStyle />
+      <AuthProvider>
         <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/wallet" element={<WalletPage />} />
-            <Route path="/money-in" element={<MoneyInPage/>}></Route>
-            <Route path="/money-out" element={<MoneyOutPage/>}></Route>
-            <Route path="/edit-money-in/:id" element={<EditMoneyInPage/>}></Route>
-            <Route path="/edit-money-out/:id" element={<EditMoneyOutPage/>}></Route>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/wallet" element={<WalletPage />} />
+          <Route path="/money-in" element={<MoneyInPage />}></Route>
+          <Route path="/money-out" element={<MoneyOutPage />}></Route>
+          <Route
+            path="/edit-money-in/:id"
+            element={<EditMoneyInPage />}
+          ></Route>
+          <Route
+            path="/edit-money-out/:id"
+            element={<EditMoneyOutPage />}
+          ></Route>
         </Routes>
-    </AuthProvider>
+      </AuthProvider>
     </BrowserRouter>
-    )
-};
-
-
+  );
+}

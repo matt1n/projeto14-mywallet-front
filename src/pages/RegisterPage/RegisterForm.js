@@ -10,26 +10,27 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const body = {name, email, password}
+  const body = { name, email, password };
 
-  function registerSucess(data){
-    navigate("/")
+  function registerSucess(data) {
+    navigate("/");
   }
-  function registerError(data){
-    let message = ""
-    data.map(d=>message+=(`${d}\n`).replace(",",""))
-    alert(message)
+  function registerError(data) {
+    let message = "";
+    data.map((d) => (message += `${d}\n`.replace(",", "")));
+    alert(message);
   }
 
   function registerSubmit(e) {
     e.preventDefault();
-    if (password!==confirmPassword){
-        alert("Senhas não coincidem")
-        return
+    if (password !== confirmPassword) {
+      alert("Senhas não coincidem");
+      return;
     }
-    axios.post("http://localhost:5000/sign-up", body)
-    .then(res=> registerSucess(res.data))
-    .catch(res=> registerError(res.response.data))
+    axios
+      .post("http://localhost:5000/sign-up", body)
+      .then((res) => registerSucess(res.data))
+      .catch((res) => registerError(res.response.data));
   }
   return (
     <RegisterFormFormat onSubmit={registerSubmit}>
