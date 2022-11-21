@@ -6,21 +6,25 @@ import styled from "styled-components";
 import { AuthContext } from "../../contexts/authContext";
 
 export default function WalletDisplay() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { config } = useContext(AuthContext);
   const [walletMovimentation, setWalletMovimentation] = useState([]);
   const [balance, setBalance] = useState(0);
 
   function balanceTotal(data) {
-    if (data.length===0){
-      setBalance(0)
+    if (data.length === 0) {
+      setBalance(0);
     }
     let newBalance = 0;
     if (data.length !== 0) {
-      data.forEach((obj) => (obj.type==="money-in" ? newBalance += obj.value : newBalance -= obj.value));
-      if (newBalance<=0 && newBalance>=-0.01){
-        setBalance(0)
-        return
+      data.forEach((obj) =>
+        obj.type === "money-in"
+          ? (newBalance += obj.value)
+          : (newBalance -= obj.value)
+      );
+      if (newBalance <= 0 && newBalance >= -0.01) {
+        setBalance(0);
+        return;
       }
       setBalance(newBalance.toFixed(2));
     }
@@ -38,19 +42,20 @@ export default function WalletDisplay() {
       .catch((res) => console.log(res.response.data));
   }
 
-  function deleteWalletCard(id){
-    if(window.confirm("Deseja mesmo apagar?")){
-      axios.delete(`http://localhost:5000/wallet/${id}`, config)
-    .then(()=> showWalletMovimentation())
-    .catch(res=> console.log(res.response.data))
+  function deleteWalletCard(id) {
+    if (window.confirm("Deseja mesmo apagar?")) {
+      axios
+        .delete(`http://localhost:5000/wallet/${id}`, config)
+        .then(() => showWalletMovimentation())
+        .catch((res) => console.log(res.response.data));
     }
   }
 
-  function editWalletCard(id, type){
-    if(type==="money-out"){
-      navigate(`/edit-money-out/${id}`)
+  function editWalletCard(id, type) {
+    if (type === "money-out") {
+      navigate(`/edit-money-out/${id}`);
     } else {
-      navigate(`/edit-money-in/${id}`)
+      navigate(`/edit-money-in/${id}`);
     }
   }
 
@@ -59,31 +64,41 @@ export default function WalletDisplay() {
   }, []);
 
   return (
-    <WalletDisplayFormat>
-      <InsAndOuts>
-        {walletMovimentation.length !== 0 ? (
-          walletMovimentation.map((obj, i) => (
-            <CardOfMoneyMoviment key={i}>
-              <DayAndDescription onClick={()=>editWalletCard(obj._id,obj.type)}>
-                <DayOfMoneyMoviment>{obj.date}</DayOfMoneyMoviment>
-                <p>{obj.description}</p>
-              </DayAndDescription>
-              <MoneyAndDelete>
-                <MoneyMovimentValue type={obj.type}>
-                  {obj.value.toFixed(2)}
-                </MoneyMovimentValue>
-                <ion-icon name="close-outline" onClick={()=>deleteWalletCard(obj._id)}></ion-icon>
-              </MoneyAndDelete>
-            </CardOfMoneyMoviment>
-          ))
-        ) : (
-          <p>Não há registros de entrada ou saída</p>
-        )}
-      </InsAndOuts>
-      <Balance balance={balance}>
-        <h2>SALDO</h2>
-        <p>{balance}</p>
-      </Balance>
+    <WalletDisplayFormat walletMovimentation={walletMovimentation}>
+      {walletMovimentation.length === 0 ? (
+        <p>
+          Não há registros de <br />
+          entrada ou saída
+        </p>
+      ) : (
+        <>
+          <InsAndOuts>
+            {walletMovimentation.map((obj, i) => (
+              <CardOfMoneyMoviment key={i}>
+                <DayAndDescription
+                  onClick={() => editWalletCard(obj._id, obj.type)}
+                >
+                  <DayOfMoneyMoviment>{obj.date}</DayOfMoneyMoviment>
+                  <p>{obj.description}</p>
+                </DayAndDescription>
+                <MoneyAndDelete>
+                  <MoneyMovimentValue type={obj.type}>
+                    {obj.value.toFixed(2)}
+                  </MoneyMovimentValue>
+                  <ion-icon
+                    name="close-outline"
+                    onClick={() => deleteWalletCard(obj._id)}
+                  ></ion-icon>
+                </MoneyAndDelete>
+              </CardOfMoneyMoviment>
+            ))}
+          </InsAndOuts>
+          <Balance balance={balance}>
+            <h2>SALDO</h2>
+            <p>{balance}</p>
+          </Balance>
+        </>
+      )}
     </WalletDisplayFormat>
   );
 }
@@ -91,12 +106,20 @@ export default function WalletDisplay() {
 const WalletDisplayFormat = styled.div`
   height: 70%;
   width: 100%;
-  padding: 23px 0px 10px 12px;
+  padding: ${(props) =>
+    props.walletMovimentation.length === 0
+      ? "23px 11pxpx 10px 12px"
+      : "23px 0px 10px 12px"};
   background-color: #fff;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: ${(props) =>
+    props.walletMovimentation.length === 0 ? "center" : "space-between"};
+  align-items: ${(props) => props.walletMovimentation.length === 0 && "center"};
+  color: ${(props) => props.walletMovimentation.length === 0 && "#868686"};
+  font-size: ${(props) => props.walletMovimentation.length === 0 && "20px"};
+  text-align: ${(props) => props.walletMovimentation.length === 0 && "center"};
   position: relative;
 `;
 
@@ -116,27 +139,27 @@ const DayAndDescription = styled.div`
   display: flex;
   width: 66%;
   cursor: pointer;
-  p{
+  p {
     max-width: 79%;
     flex-wrap: wrap;
     word-wrap: break-word;
     align-items: center;
   }
-`
+`;
 const DayOfMoneyMoviment = styled.p`
-min-width: 41.1px;
+  min-width: 41.1px;
   color: #adadad;
   margin-right: 7px;
 `;
 const MoneyAndDelete = styled.div`
-display: flex;
-  ion-icon{
+  display: flex;
+  ion-icon {
     color: #adadad;
     font-size: 20px;
     margin-right: 5px;
     cursor: pointer;
   }
-`
+`;
 const MoneyMovimentValue = styled.p`
   color: ${(props) => (props.type === "money-out" ? "#C70000" : "green")};
   margin-right: 8px;
@@ -160,6 +183,6 @@ const Balance = styled.div`
   }
   p {
     font-size: 17px;
-    color: ${props=> props.balance>=0 ? "green" : "#C70000"};
+    color: ${(props) => (props.balance >= 0 ? "green" : "#C70000")};
   }
 `;
