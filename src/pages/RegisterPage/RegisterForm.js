@@ -28,7 +28,7 @@ export default function RegisterForm() {
       return;
     }
     axios
-      .post("http://localhost:5000/sign-up", body)
+      .post("https://mywallet-api-c0yl.onrender.com/sign-up", body)
       .then((res) => registerSucess(res.data))
       .catch((res) => registerError(res.response.data));
   }

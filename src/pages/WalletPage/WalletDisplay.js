@@ -36,7 +36,7 @@ export default function WalletDisplay() {
 
   function showWalletMovimentation() {
     axios
-      .get("http://localhost:5000/wallet", config)
+      .get("https://mywallet-api-c0yl.onrender.com/wallet", config)
       .then((res) => getSucess(res.data))
       .catch((res) => console.log(res.response.data));
   }

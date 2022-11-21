@@ -16,11 +16,11 @@ export default function WalletPage() {
       </PageTop>
       <WalletDisplay></WalletDisplay>
       <WalletButtons>
-        <button onClick={() => navigate("/money-in")}>
+        <button onClick={() => navigate("/wallet/money-in")}>
           <ion-icon name="add-circle-outline"></ion-icon>
           <p>Nova entrada</p>
         </button>
-        <button onClick={() => navigate("/money-out")}>
+        <button onClick={() => navigate("/wallet/money-out")}>
           <ion-icon name="remove-circle-outline"></ion-icon>
           <p>Nova saída</p>
         </button>

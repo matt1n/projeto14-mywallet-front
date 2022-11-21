@@ -16,7 +16,7 @@ export default function MoneyOutPage() {
   function MoneyOutSubmit(e) {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/wallet/money-out", body, config)
+      .post("https://mywallet-api-c0yl.onrender.com/wallet/money-out", body, config)
       .then(() => navigate("/wallet"))
       .catch((res) => console.log(res.response.data));
   }

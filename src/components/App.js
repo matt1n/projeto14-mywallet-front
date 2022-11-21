@@ -18,14 +18,14 @@ export default function App() {
           <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/wallet" element={<WalletPage />} />
-          <Route path="/money-in" element={<MoneyInPage />}></Route>
-          <Route path="/money-out" element={<MoneyOutPage />}></Route>
+          <Route path="/wallet/money-in" element={<MoneyInPage />}></Route>
+          <Route path="/wallet/money-out" element={<MoneyOutPage />}></Route>
           <Route
-            path="/edit-money-in/:id"
+            path="/wallet/money-in/:id"
             element={<EditMoneyInPage />}
           ></Route>
           <Route
-            path="/edit-money-out/:id"
+            path="/wallet/money-out/:id"
             element={<EditMoneyOutPage />}
           ></Route>
         </Routes>

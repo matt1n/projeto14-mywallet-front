@@ -11,7 +11,7 @@ export default function WalletCard({ obj, i, showWalletMovimentation }) {
   function deleteWalletCard(id) {
     if (window.confirm("Deseja mesmo apagar?")) {
       axios
-        .delete(`http://localhost:5000/wallet/${id}`, config)
+        .delete(`https://mywallet-api-c0yl.onrender.com/wallet/${id}`, config)
         .then(() => showWalletMovimentation())
         .catch((res) => console.log(res.response.data));
     }
@@ -19,9 +19,9 @@ export default function WalletCard({ obj, i, showWalletMovimentation }) {
 
   function editWalletCard(id, type) {
     if (type === "money-out") {
-      navigate(`/edit-money-out/${id}`);
+      navigate(`/wallet/money-out/${id}`);
     } else {
-      navigate(`/edit-money-in/${id}`);
+      navigate(`/wallet/money-in/${id}`);
     }
   }
   return (

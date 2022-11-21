@@ -18,7 +18,7 @@ export default function EditMoneyInPage() {
   function MoneyInSubmit(e) {
     e.preventDefault();
     axios
-      .put(`http://localhost:5000/wallet/${id}`, body, config)
+      .put(`https://mywallet-api-c0yl.onrender.com/wallet/${id}`, body, config)
       .then(() => navigate("/wallet"))
       .catch((res) => console.log(res.response.data));
   }
