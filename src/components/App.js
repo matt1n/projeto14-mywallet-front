@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyle from "../assets/styles/GlobalStyle";
 import AuthProvider from "../contexts/authContext";
+import EditMoneyInPage from "../pages/EditMoneyInPage/EditMoneyInPage";
+import EditMoneyOutPage from "../pages/EditMoneyOutPage /EditMoneyOutPage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import MoneyInPage from "../pages/MoneyInPage/MoneyInPage";
 import MoneyOutPage from "../pages/MoneyOutPage/MoneyOutPage";
@@ -18,6 +20,8 @@ export default function App() {
             <Route path="/wallet" element={<WalletPage />} />
             <Route path="/money-in" element={<MoneyInPage/>}></Route>
             <Route path="/money-out" element={<MoneyOutPage/>}></Route>
+            <Route path="/edit-money-in/:id" element={<EditMoneyInPage/>}></Route>
+            <Route path="/edit-money-out/:id" element={<EditMoneyOutPage/>}></Route>
         </Routes>
     </AuthProvider>
     </BrowserRouter>

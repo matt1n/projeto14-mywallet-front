@@ -32,7 +32,7 @@ export default function WalletPage() {
 const WalletPageFormat = styled.div`
   width: 100%;
   height: 100%;
-  padding: 25px 25px 16px 25px;
+  padding: 25px 20px 16px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

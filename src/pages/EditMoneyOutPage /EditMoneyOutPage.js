@@ -1,12 +1,14 @@
 import axios from "axios"
 import { useContext, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components"
 import { AuthContext } from "../../contexts/authContext"
 
-export default function MoneyOutPage() {
-    const navigate = useNavigate()
 
+export default function EditMoneyOutPage() {
+    const {id} = useParams()
+
+    const navigate = useNavigate()
 
     const [value, setValue] = useState(0)
     const [description, setDescription] = useState("")
@@ -14,28 +16,29 @@ export default function MoneyOutPage() {
 
     const body = {value,description}
 
-    function MoneyOutSubmit(e){
+    function editMoneyOutSubmit(e){
         e.preventDefault()
-        axios.post("http://localhost:5000/wallet/money-out", body, config)
+        axios.put(`http://localhost:5000/wallet/${id}`, body, config)
         .then(()=>navigate("/wallet"))
         .catch((res)=> console.log(res.response.data))
     }
     return (
-        <MoneyOutFormat>
-        <div>
-            <p>Nova saída</p>
-            <ion-icon name="chevron-back-circle" onClick={()=> navigate("/wallet")}></ion-icon>
-        </div>
-        <form onSubmit={MoneyOutSubmit}>
-            <input type="number" placeholder="Valor (max: 9999,99)" min={0.01} max={9999.99} step={0.01} onChange={(e)=> setValue(Number(e.target.value))} required></input>
-            <input placeholder="Descrição" onChange={(e)=> setDescription(e.target.value)} required></input>
-            <button>Salvar saída</button>
-        </form>
-    </MoneyOutFormat>
+        <EditMoneyOutFormat>
+            <div>
+                <p>Editar saída</p>
+                <ion-icon name="chevron-back-circle" onClick={()=> navigate("/wallet")}></ion-icon>
+            </div>
+            
+            <form onSubmit={editMoneyOutSubmit}>
+                <input type="number" placeholder="Valor (max: 9999,99)" min={0.01} max={9999.99} step={0.01} onChange={(e)=> setValue(Number(e.target.value))} required></input>
+                <input placeholder="Descrição" onChange={(e)=> setDescription(e.target.value)} required></input>
+                <button>Atualizar saída</button>
+            </form>
+        </EditMoneyOutFormat>
     )
 };
 
-const MoneyOutFormat = styled.div`
+const EditMoneyOutFormat = styled.div`
     width: 100%;
     height: 100%;
     padding: 25px 20px 16px 20px;

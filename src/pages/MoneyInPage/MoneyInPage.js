@@ -27,7 +27,7 @@ export default function MoneyInPage() {
             </div>
             
             <form onSubmit={MoneyInSubmit}>
-                <input type="number" placeholder="Valor" min={0.01} onChange={(e)=> setValue(Number(e.target.value))} required></input>
+                <input type="number" placeholder="Valor (max: 9999,99)" min={0.01} max={9999.99} step={0.01} onChange={(e)=> setValue(Number(e.target.value))} required></input>
                 <input placeholder="Descrição" onChange={(e)=> setDescription(e.target.value)} required></input>
                 <button>Salvar entrada</button>
             </form>
@@ -38,7 +38,7 @@ export default function MoneyInPage() {
 const MoneyInFormat = styled.div`
     width: 100%;
     height: 100%;
-    padding: 25px 25px 16px 25px;
+    padding: 25px 20px 16px 20px;
     div{
         height: 32px;
         display: flex;
